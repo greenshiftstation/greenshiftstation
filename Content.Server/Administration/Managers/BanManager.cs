@@ -44,6 +44,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
     public const string SawmillId = "admin.bans";
     public const string JobPrefix = "Job:";
+    public const string AntagPrefix = "Antag:";
 
     private readonly Dictionary<ICommonSession, List<ServerRoleBanDef>> _cachedRoleBans = new();
     // Cached ban exemption flags are used to handle
@@ -237,12 +238,14 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
     // Removing it will clutter the note list. Please also make sure that department bans are applied to roles with the same DateTimeOffset.
     public async void CreateRoleBan(NetUserId? target, string? targetUsername, NetUserId? banningAdmin, (IPAddress, int)? addressRange, ImmutableTypedHwid? hwid, string role, uint? minutes, NoteSeverity severity, string reason, DateTimeOffset timeOfBan)
     {
-        if (!_prototypeManager.TryIndex(role, out JobPrototype? _))
+        if (!_prototypeManager.TryIndex<JobPrototype>(role, out var job) && !_prototypeManager.TryIndex<AntagPrototype>(role, out var antag))
         {
             throw new ArgumentException($"Invalid role '{role}'", nameof(role));
         }
 
-        role = string.Concat(JobPrefix, role);
+        //TODO: create an integration test that screams if a jobPrototype and antagPrototype have the same ID
+        role = job is not null ? string.Concat(JobPrefix, role) : string.Concat(AntagPrefix, role);
+
         DateTimeOffset? expires = null;
         if (minutes > 0)
         {
@@ -332,6 +335,52 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
             .ToHashSet();
     }
     #endregion
+
+    /// <summary>
+    /// Checks if any roles on the list are banned for the specified player.
+    /// </summary>
+    /// <param name="player">The player.</param>
+    /// <param name="roles">A string list of role prototype IDs, with job/antag prefix.</param>
+    /// <returns>True if any of the roles are banned.</returns>>
+    public bool IsRoleBanned(ICommonSession player, List<string> roles)
+    {
+        var bans = GetRoleBans(player.UserId);
+
+        if (bans is null || bans.Count == 0)
+            return false;
+
+        foreach (var role in roles)
+        {
+            var roleId = role;
+            if (_prototypeManager.TryIndex<JobPrototype>(role, out _ ))
+                roleId = JobPrefix + role;
+            else if (_prototypeManager.TryIndex<AntagPrototype>(role, out _ ))
+                roleId = AntagPrefix + role;
+
+            if (bans.Contains(roleId))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if any roles on the list are banned for the specified player.
+    /// </summary>
+    /// <param name="player">The player.</param>
+    /// <param name="prototypes">A list of antag prototype IDs.</param>
+    /// <returns>True if any of the roles are banned.</returns>>
+    public bool IsRoleBanned(ICommonSession player, List<ProtoId<AntagPrototype>> prototypes)
+    {
+        var list = new List<string>();
+
+        foreach (var proto in prototypes)
+        {
+            list.Add(AntagPrefix + proto);
+        }
+
+        return IsRoleBanned(player, list);
+    }
 
     public void SendRoleBans(ICommonSession pSession)
     {
