@@ -1,0 +1,17 @@
+Content.Client/_RMC14/Weapons/Ranged/PumpActionSystem.cs
+Content.Server/_RMC14/Weapons/Ranged/PumpActionSystem.cs
+Content.Shared/_RMC14/Input/CMKeyFunctions.cs
+Content.Shared/_RMC14/Weapons/Common/UniqueActionComponent.cs
+Content.Shared/_RMC14/Weapons/Common/UniqueActionEvent.cs
+Content.Shared/_RMC14/Weapons/Common/UniqueActionSystem.cs
+Content.Shared/_RMC14/Weapons/Ranged/PumpActionComponent.cs
+Content.Shared/_RMC14/Weapons/Ranged/SharedPumpActionSystem.cs
+Content.Shared/_RMC14/Weapons/Ranged/SharedPumpActionSystem.cs
+Content.Shared/_RMC14/Weapons/Ranged/SharedPumpActionSystem.cs
+Content.Shared/_RMC14/Weapons/Ranged/ShootUseDelaySystem.cs
+Resources/Audio/_RMC14/Weapons/Guns/Pump/attributions.yml
+Resources/Audio/_RMC14/Weapons/Guns/Pump/shotgunpump1.ogg
+Resources/Audio/_RMC14/Weapons/Guns/Pump/shotgunpump2.ogg
+Resources/Locale/en-US/_RMC14/escape-menu/options-menu.ftl
+Resources/Locale/en-US/_RMC14/weapons/guns.ftl
+Resources/Prototypes/_RMC14/Audio/gun_sound_collections.yml
