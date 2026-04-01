@@ -111,6 +111,7 @@
 
 - type: entity
   id: CableHVUncuttable
+  categories: [ HideSpawnMenu ] # GREENSHIFT - we have power pipes now :)
   parent: CableHV
   suffix: uncuttable
   components:
@@ -120,6 +121,7 @@
 - type: entity
   parent: CableBase
   id: CableMV
+  categories: [ HideSpawnMenu ] # GREENSHIFT - we have power pipes now :)
   name: MV power cable
   description: A medium voltage power cable.
   components:
@@ -165,6 +167,7 @@
 
 - type: entity
   id: CableMVUncuttable
+  categories: [ HideSpawnMenu ] # GREENSHIFT - we have power pipes now :)
   parent: CableMV
   suffix: uncuttable
   components:
