@@ -97,13 +97,38 @@ public sealed class ClientClothingSystem : ClothingSystem
 
     private void OnGetVisuals(EntityUid uid, ClothingComponent item, GetEquipmentVisualsEvent args)
     {
+        /**
+         * Greenshift : we COULD absolutely just use the humanoidProfileComponent here and entirely 
+         * replace the use of the inventorycomp for this. But ultimately that would make upstream merges more difficult.
+         * its kind of obvious that InventoryComp is a little deprecated here though. Might maybe nudge upstream that this 
+         * entire event call could use a minor low effort refactor. But honestly this should have been done as part of 918709c ?
+         * the displacement map logic belongs in this event handler, not in the main function imo.
+         */ 
         if (!TryComp(args.Equipee, out InventoryComponent? inventory))
             return;
 
         List<PrototypeLayerData>? layers = null;
 
+        // Begin Greenshift - Sexy Layers
+        // BUT ACTUALLY first attempt to get sex specific data.
+        var equipeeSex = CompOrNull<HumanoidProfileComponent>(args.Equipee)?.Sex;
+        if (equipeeSex != null)
+        {
+            // try for full slot-sex-species
+            if (inventory.SpeciesId != null)
+            {
+                item.ClothingVisuals.TryGetValue($"{args.Slot}-{equipeeSex.ToString()}-{inventory.SpeciesId}", out layers);
+            }
+            // fall back to slot-sex
+            if (layers == null)
+            {
+                item.ClothingVisuals.TryGetValue($"{args.Slot}-{equipeeSex.ToString()}", out layers);
+            }
+        }
+
         // first attempt to get species specific data.
-        if (inventory.SpeciesId != null)
+        if (layers == null && inventory.SpeciesId != null)
+            // End Greenshift - Sexy Layers
             item.ClothingVisuals.TryGetValue($"{args.Slot}-{inventory.SpeciesId}", out layers);
 
         // if that returned nothing, attempt to find generic data
@@ -126,7 +151,8 @@ public sealed class ClientClothingSystem : ClothingSystem
                 i++;
             }
 
-            item.MappedLayer = key;
+            // why tf are we setting mappedlayer here? We are inside a loop. Also, each item of clothing can explicitly have more than one mapped layer in the spritesystem
+            item.MappedLayer = key; 
             args.Layers.Add((key, layer));
         }
     }
@@ -328,6 +354,8 @@ public sealed class ClientClothingSystem : ClothingSystem
 
             if (displacementData is not null)
             {
+                // This is so jank. This is not how this should work. What about female vox helmet displacements? This whole shit needs a refactor.
+
                 //Checking that the state is not tied to the current race. In this case we don't need to use the displacement maps.
                 if (layerData.State is not null && inventory.SpeciesId is not null && layerData.State.EndsWith(inventory.SpeciesId))
                     continue;
