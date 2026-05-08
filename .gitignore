@@ -309,3 +309,5 @@ Resources/MapImages
 
 # Direnv stuff
 .direnv/
+
+.venv
