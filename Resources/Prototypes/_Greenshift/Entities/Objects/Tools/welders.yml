@@ -2,6 +2,7 @@
   parent: Welder
   name: welder
   id: GSWelder
+  suffix: GS
   description: 'A brass blow torch, perfect for fixing cracks.'
   components:
   - type: Sprite

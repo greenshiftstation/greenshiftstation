@@ -2,6 +2,7 @@
   name: wirecutter
   parent: BaseItem
   id: GSWirecutter
+  suffix: GS
   description: 'A small wirecutter, made from dyed wood and steel. Sharp!'
   components:
   - type: EmitSoundOnLand
@@ -41,6 +42,7 @@
   name: screwdriver
   parent: BaseItem
   id: GSScrewdriver
+  suffix: GS
   description: 'A well made ratcheting screwdriver, should really have a bigger handle.'
   components:
   - type: EmitSoundOnLand
@@ -78,6 +80,7 @@
   parent: Wrench
   name: wrench
   id: GSWrench
+  suffix: GS
   description: 'A common tool for assembly and disassembly. Heavy, unwieldy, but effective.'
   components:
   - type: Sprite
@@ -104,6 +107,7 @@
   name: multitool
   parent: BaseItem
   id: GSMultitool
+  suffix: GS
   description: A tool to read and send electrical pulses and signals through wires and electronics.
   components:
   - type: EmitSoundOnLand
@@ -158,6 +162,7 @@
   parent: BaseCrowbar
   name: prybar
   id: GSPrybar
+  suffix: GS
   description: A steel prybar. You remembered to bring one this time!
   components:
   - type: Sprite
