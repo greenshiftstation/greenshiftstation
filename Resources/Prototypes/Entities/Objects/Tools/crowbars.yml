@@ -44,7 +44,7 @@
 # Standard (grey) Crowbar
 - type: entity
   parent: BaseCrowbar
-  categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ] #GREENSHIFT
   id: Crowbar
   components:
   - type: Sprite
@@ -58,7 +58,7 @@
 - type: entity
   parent: BaseCrowbar
   id: CrowbarRed
-  categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ] #GREENSHIFT
   components:
   - type: Tag
     tags:
@@ -93,7 +93,7 @@
 - type: entity
   parent: BaseCrowbar
   id: CrowbarGreen
-  categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ] #GREENSHIFT
   components:
   - type: Sprite
     layers:
@@ -124,7 +124,7 @@
 - type: entity
   parent: BaseCrowbar
   id: CrowbarOrange
-  categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ] #GREENSHIFT
   components:
   - type: Sprite
     layers:
@@ -155,7 +155,7 @@
 - type: entity
   parent: BaseCrowbar
   id: CrowbarYellow
-  categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ] #GREENSHIFT
   components:
   - type: Sprite
     layers:
