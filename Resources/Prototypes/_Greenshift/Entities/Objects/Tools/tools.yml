@@ -67,7 +67,7 @@
       path: "/Audio/Weapons/bladeslice.ogg"
   - type: Tool
     qualities:
-      - Screwinghar
+      - Screwing
     useSound:
       collection: Screwdriver
   - type: PhysicalComposition

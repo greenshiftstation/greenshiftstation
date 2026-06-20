@@ -14,6 +14,7 @@ using Content.Shared.Power;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Components;
 using Content.Shared.Wires;
+using Content.Shared.Wieldable.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -761,6 +762,13 @@ public sealed class WiresSystem : SharedWiresSystem
                 if (wire.IsCut)
                 {
                     _popupSystem.PopupCursor(Loc.GetString("wires-component-ui-on-receive-message-cannot-pulse-cut-wire"), user);
+                    break;
+                }
+
+                if (TryComp<WieldableComponent>(toolEntity, out var wieldable) &&
+                !wieldable.Wielded)
+                {
+                    _popupSystem.PopupCursor(Loc.GetString("wires-component-ui-on-receive-message-need-wield"), user);
                     break;
                 }
 
