@@ -85,7 +85,7 @@
   components:
   - type: Sprite
     sprite: _Greenshift/Objects/Tools/wrench.rsi
-    state: icon
+    state: storage ## State is set to storage until we can differentiate a held/swung item and a dropped item code wise for RSI-states.
   - type: Item
     sprite: _Greenshift/Objects/Tools/wrench.rsi
     storedRotation: -90
@@ -93,7 +93,7 @@
       sprite: _Greenshift/Objects/Tools/wrench.rsi
       state: storage
   - type: MeleeWeapon
-    wideAnimationRotation: 240
+    wideAnimationRotation: -90 #240 for the 'icon' state.
     attackRate: 1.5
     damage:
       types:
