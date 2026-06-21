@@ -342,13 +342,14 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
 
         if (configurator.LinkModeActive)
         {
-            //GREENSHIFT
+            //GREENSHIFT START
             if (TryComp<WieldableComponent>(uid, out var wieldable) &&
                 !wieldable.Wielded)
             {
                 _popupSystem.PopupCursor(Loc.GetString("network-configurator-link-needs-wield"), user);
                 return;
             }
+            // GREENSHIFT END
 
             TryLinkDevice(uid, configurator, target, user);
             return;
@@ -356,13 +357,14 @@ public sealed class NetworkConfiguratorSystem : SharedNetworkConfiguratorSystem
 
         if (!HasComp<DeviceListComponent>(target))
         {
-            //GREENSHIFT
+            //GREENSHIFT START
             if (TryComp<WieldableComponent>(uid, out var wieldable) &&
                 !wieldable.Wielded)
             {
                 _popupSystem.PopupCursor(Loc.GetString("network-configurator-save-needs-wield"), user);
                 return;
             }
+            // GREENSHIFT END
 
             TryAddNetworkDevice(uid, target, user, configurator);
             return;

@@ -7,7 +7,7 @@ using Content.Shared.Item.ItemToggle;
 using Content.Shared.Maps;
 using Content.Shared.Popups;
 using Content.Shared.Tools.Components;
-using Content.Shared.Wieldable.Components;
+using Content.Shared.Wieldable.Components; // GREENSHIFT
 using JetBrains.Annotations;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
@@ -263,12 +263,14 @@ public abstract partial class SharedToolSystem : EntitySystem
             RaiseLocalEvent(target.Value, beforeAttempt);
         }
 
-        // check if the tool requires wield
+        // GREENSHIFT: check if the tool requires wield
         if (TryComp<WieldableComponent>(tool, out var wieldable) &&
             !wieldable.Wielded)
         {
+            _popup.PopupCursor(Loc.GetString("tool-component-needs-wield"), user);
             return false;
         }
+        // GREENSHIFT END
 
         return !beforeAttempt.Cancelled;
     }
